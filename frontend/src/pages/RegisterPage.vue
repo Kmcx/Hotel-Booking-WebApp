@@ -7,10 +7,14 @@
         <input v-model="name" type="text" placeholder="Name" class="input" />
         <input v-model="email" type="email" placeholder="Email" class="input" />
         <input v-model="password" type="password" placeholder="Password" class="input" />
-        <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
-          Register
-        </button>
+        <input v-model="country" type="text" placeholder="Country" class="input" />
+        <input v-model="city" type="text" placeholder="City" class="input" />
+        <input type="file" @change="handleFileUpload" class="input" />
+          <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
+            Register
+          </button>
       </form>
+
 
       <router-link to="/login" class="block text-center text-sm text-blue-600 hover:underline mt-4">
         Already have an account? Login
@@ -27,19 +31,32 @@ import { useUserStore } from '../stores/userStore'
 const name = ref('')
 const email = ref('')
 const password = ref('')
+const country = ref('')
+const city = ref('')
+const photo = ref(null)
+
 const router = useRouter()
 const userStore = useUserStore()
 
+const handleFileUpload = (e) => {
+  photo.value = e.target.files[0]
+}
+
 const handleRegister = async () => {
   try {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/register`, {
+    const formData = new FormData()
+    formData.append('name', name.value)
+    formData.append('email', email.value)
+    formData.append('password', password.value)
+    formData.append('country', country.value)
+    formData.append('city', city.value)
+    if (photo.value) {
+      formData.append('photo', photo.value)
+    }
+
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/register`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name: name.value,
-        email: email.value,
-        password: password.value
-      }),
+      body: formData
     })
 
     if (!res.ok) throw new Error('Register failed')
@@ -47,10 +64,11 @@ const handleRegister = async () => {
     userStore.login(data.user, data.token)
     router.push('/')
   } catch (err) {
-    alert('Register failed')
+    alert(err.message || 'Register failed')
   }
 }
 </script>
+
 
 <style scoped>
 .input {

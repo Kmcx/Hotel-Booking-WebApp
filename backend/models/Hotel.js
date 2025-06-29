@@ -23,10 +23,15 @@ const hotelSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  available: {
+    type: [String], // ISO date string list (e.g. '2024-07-06')
+    default: [],
+  },
   createdAt: {
     type: Date,
     default: Date.now,
   },
-});
+})
+
 
 module.exports = mongoose.model('Hotel', hotelSchema);

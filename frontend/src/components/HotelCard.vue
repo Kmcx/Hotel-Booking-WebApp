@@ -1,31 +1,40 @@
 <template>
   <div class="hotel-card-wide">
-    <!-- Sol: Otel görselleri (şimdilik ilk resim) -->
-    <div class="hotel-image-slider">
-      <img :src="hotel.images?.[0]" alt="Hotel Image" />
+    <!-- Swiper (varsa resim) -->
+    <div class="hotel-image-slider" v-if="hotel.images?.length">
+      <Swiper
+        :slides-per-view="1"
+        :loop="true"
+        :autoplay="{ delay: 3000 }"
+        :pagination="{ clickable: true }"
+        :navigation="true"
+        class="hotel-swiper"
+      >
+        <SwiperSlide v-for="(img, index) in hotel.images" :key="index">
+          <img :src="img" class="carousel-image" alt="Hotel Image" />
+        </SwiperSlide>
+      </Swiper>
     </div>
 
-    <!-- Sağ: Otel detayları -->
+    <!-- Otel Bilgileri -->
     <div class="hotel-info">
       <div class="hotel-top">
         <h2 class="hotel-name">{{ hotel.name }}</h2>
         <div class="hotel-rating">
-          ⭐ {{ hotel.rating }} / 5 ({{ hotel.commentCount }} reviews)
+          ⭐ {{ hotel.rating }} / 5 ({{ hotel.commentCount ?? 0 }} reviews)
         </div>
         <div class="hotel-features">
-          <span v-if="hotel.features?.includes('breakfast')">🥐 Breakfast Included</span>
-          <span v-if="hotel.features?.includes('pool')">🏊 Pool</span>
-          <span v-if="hotel.features?.includes('wifi')">📶 Wifi</span>
-          <!-- Daha fazla özellik eklenebilir -->
+          <span v-if="hotel.amenities?.includes('breakfast')">🥐 Breakfast</span>
+          <span v-if="hotel.amenities?.includes('pool')">🏊 Pool</span>
+          <span v-if="hotel.amenities?.includes('wifi')">📶 Wifi</span>
+          <span v-if="hotel.amenities?.includes('seaView')">🌊 Sea View</span>
         </div>
       </div>
 
       <div class="hotel-bottom">
-        <div class="hotel-price">
-          {{ displayPrice }} TL
-        </div>
-        <div v-if="hotel.specialDiscount" class="hotel-discount">
-          %{{ hotel.specialDiscount }} off!
+        <div class="hotel-price">{{ displayPrice }} TL</div>
+        <div v-if="userStore.user && hotel.isMemberOnly" class="hotel-discount">
+          Member Only Discount
         </div>
       </div>
     </div>
@@ -34,15 +43,23 @@
 
 <script setup>
 import { computed } from 'vue'
+import { useUserStore } from '../stores/userStore'
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Autoplay, Pagination, Navigation } from 'swiper/modules'
 
-const { hotel, loggedIn } = defineProps({
-  hotel: Object,
-  loggedIn: Boolean
+import 'swiper/css'
+import 'swiper/css/pagination'
+import 'swiper/css/navigation'
+
+const { hotel } = defineProps({
+  hotel: Object
 })
 
+const userStore = useUserStore()
+
 const displayPrice = computed(() => {
-  if (loggedIn && hotel.memberPrice) return hotel.memberPrice
-  return hotel.price
+  if (userStore.user && hotel.discountedPrice) return hotel.discountedPrice
+  return hotel.pricePerNight
 })
 </script>
 
@@ -54,6 +71,7 @@ const displayPrice = computed(() => {
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   background-color: white;
+  margin-bottom: 1.5rem;
 }
 
 .hotel-image-slider {
@@ -61,13 +79,24 @@ const displayPrice = computed(() => {
   height: 160px;
   flex-shrink: 0;
   background-color: #f3f4f6;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
 }
 
-.hotel-image-slider img {
+.hotel-swiper {
+  width: 100%;
+  height: 100%;
+}
+
+::v-deep(.swiper-button-prev),
+::v-deep(.swiper-button-next) {
+  z-index: 10;
+  color: #1f2937;
+}
+
+.carousel-image {
   width: 100%;
   height: 100%;
   object-fit: cover;

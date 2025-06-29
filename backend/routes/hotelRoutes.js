@@ -6,6 +6,6 @@ const verifyToken = require('../middlewares/authMiddleware');
 router.get('/', hotelController.getAllHotels);
 router.post('/', hotelController.createHotel);
 router.get('/member', verifyToken, hotelController.getHotelsWithMemberPrice);
-
+router.put('/:id', hotelController.updateHotel);
 
 module.exports = router;

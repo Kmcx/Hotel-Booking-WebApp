@@ -28,19 +28,25 @@ const userStore = useUserStore()
 
 const handleLogin = async () => {
   try {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/login`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: email.value, password: password.value }),
     })
-    if (!res.ok) throw new Error('Login failed')
+
+    if (!res.ok) {
+      const errorData = await res.json()
+      throw new Error(errorData.message || 'Login failed')
+    }
+
     const data = await res.json()
     userStore.login(data.user, data.token)
     router.push('/')
   } catch (err) {
-    alert('Login failed')
+    alert(err.message || 'Login failed')
   }
 }
+
 </script>
 
 <style scoped>

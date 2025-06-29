@@ -65,3 +65,21 @@ exports.createHotel = async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch hotels with prices' });
   }
 };
+
+exports.updateHotel = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedHotel = await Hotel.findByIdAndUpdate(id, req.body, {
+      new: true,          // Güncellenmiş veriyi döner
+      runValidators: true // Mongoose validation'ları uygular
+    });
+
+    if (!updatedHotel) {
+      return res.status(404).json({ error: 'Hotel not found' });
+    }
+
+    res.json(updatedHotel);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to update hotel' });
+  }
+};
