@@ -1,15 +1,14 @@
 <template>
-  <form @submit.prevent="handleSearch" class="flex flex-wrap items-center gap-4 bg-white p-4 shadow rounded-lg">
-    <input v-model="city" type="text" placeholder="Şehir" class="p-2 border rounded w-full sm:w-auto" />
+  <form @submit.prevent="handleSearch" class="search-form">
+    <input v-model="city" type="text" placeholder="City" class="search-input" />
 
-    <input v-model="startDate" type="date" class="p-2 border rounded w-full sm:w-auto" />
-    <input v-model="endDate" type="date" class="p-2 border rounded w-full sm:w-auto" />
+    <input v-model="startDate" type="date" class="search-input" />
+    <input v-model="endDate" type="date" class="search-input" />
 
-    <input v-model="guestCount" type="number" min="1" placeholder="Kişi sayısı"
-      class="p-2 border rounded w-full sm:w-auto" />
+    <input v-model="guestCount" type="number" min="1" placeholder="People" class="search-input" />
 
-    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-      Ara
+    <button type="submit" class="search-button">
+      Search
     </button>
   </form>
 </template>
@@ -17,6 +16,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import './SearchBar.css' 
 
 const city = ref('')
 const startDate = ref('')
@@ -33,7 +33,6 @@ function handleSearch() {
     guests: guestCount.value,
   }
 
-  // 🔁 Arama sonuçları sayfasına yönlendirme
   router.push({ path: '/search', query })
 }
 </script>

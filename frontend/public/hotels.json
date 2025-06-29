@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "name": "Elite World Marmaris",
+    "images": [
+      "https://via.placeholder.com/400x200",
+      "https://via.placeholder.com/400x200/ffcc00"
+    ],
+    "rating": 4.6,
+    "commentCount": 143,
+    "features": ["breakfast", "pool", "wifi"],
+    "price": 13500,
+    "memberPrice": 12000,
+    "specialDiscount": 10,
+    "flagged": true
+  },
+  {
+    "id": 2,
+    "name": "D Maris Bay",
+    "images": [
+      "https://via.placeholder.com/400x200",
+      "https://via.placeholder.com/400x200/00ccff"
+    ],
+    "rating": 4.9,
+    "commentCount": 99,
+    "features": ["pool", "wifi"],
+    "price": 18000,
+    "memberPrice": 16500,
+    "specialDiscount": 8,
+    "flagged": true
+  }
+]

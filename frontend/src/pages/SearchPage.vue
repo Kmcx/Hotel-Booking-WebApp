@@ -1,6 +1,6 @@
 <template>
   <div class="p-6 space-y-4">
-    <h1 class="text-2xl font-bold mb-4">Arama Sonuçları</h1>
+    <h1 class="text-2xl font-bold mb-4">Search Results </h1>
 
     <HotelCard
       v-for="(hotel, index) in hotels"
