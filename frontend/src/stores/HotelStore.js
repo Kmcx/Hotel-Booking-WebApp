@@ -1,15 +1,18 @@
 import { defineStore } from 'pinia'
+import axios from 'axios'
 
 export const useHotelStore = defineStore('hotel', {
   state: () => ({
-    hotels: []
+    hotelDetail: null
   }),
   actions: {
-    setHotels(hotels) {
-      this.hotels = hotels
-    },
-    getHotelById(id) {
-      return this.hotels.find(h => h.id === id)
+    async fetchHotelById(id) {
+      try {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/hotels/${id}`)
+        this.hotelDetail = res.data
+      } catch (error) {
+        console.error('Failed to fetch hotel:', error)
+      }
     }
   }
 })

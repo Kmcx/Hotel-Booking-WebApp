@@ -1,5 +1,6 @@
 <template>
-  <div class="hotel-card-wide">
+  <div class="hotel-card-wide" @click="goToDetail" style="cursor: pointer;">
+
     <!-- Swiper (varsa resim) -->
     <div class="hotel-image-slider" v-if="hotel.images?.length">
       <Swiper
@@ -43,6 +44,7 @@
 
 <script setup>
 import { computed } from 'vue'
+import { useRouter } from 'vue-router'
 import { useUserStore } from '../stores/userStore'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Autoplay, Pagination, Navigation } from 'swiper/modules'
@@ -55,12 +57,18 @@ const { hotel } = defineProps({
   hotel: Object
 })
 
+const router = useRouter()
 const userStore = useUserStore()
 
 const displayPrice = computed(() => {
   if (userStore.user && hotel.discountedPrice) return hotel.discountedPrice
   return hotel.pricePerNight
 })
+
+const goToDetail = () => {
+  router.push(`/hotel/${hotel._id}`)
+}
+
 </script>
 
 <style scoped>

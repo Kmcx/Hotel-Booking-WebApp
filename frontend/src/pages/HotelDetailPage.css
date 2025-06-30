@@ -1,0 +1,271 @@
+.hotel-detail-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px;
+  font-family: Arial, sans-serif;
+}
+
+.top-section {
+  display: flex;
+  gap: 40px;
+  margin-bottom: 24px;
+}
+
+.left-info {
+  flex: 2;
+}
+
+.map-box {
+  flex: 1;
+}
+
+.hotel-name {
+  font-size: 28px;
+  font-weight: bold;
+  color: #1d4ed8;
+  margin-bottom: 6px;
+}
+
+.rating {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 6px;
+}
+
+.location {
+  font-size: 15px;
+  color: #777;
+  margin-bottom: 16px;
+}
+
+.amenities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.amenity {
+  background-color: #f0f0f0;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.price-box {
+  font-size: 22px;
+  font-weight: bold;
+  color: #16a34a;
+}
+
+.discounted {
+  margin-right: 10px;
+}
+
+.original {
+  color: #999;
+  text-decoration: line-through;
+  font-size: 16px;
+}
+
+.tax-info {
+  font-size: 12px;
+  color: #777;
+  margin-top: 4px;
+}
+
+.map {
+  width: 100%;
+  height: 160px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.gallery {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.gallery-image {
+  flex: 1;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.ratings-section {
+  margin-bottom: 32px;
+}
+
+.comments-section {
+  margin-bottom: 40px;
+}
+
+.comments-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.comments-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.comment {
+  background-color: #fafafa;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.comment-header {
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 6px;
+}
+
+.comment-text {
+  font-size: 15px;
+  color: #333;
+}
+
+.comment-reply {
+  font-size: 12px;
+  color: #999;
+  margin-top: 8px;
+}
+
+.loading {
+  text-align: center;
+  color: #888;
+  padding: 40px;
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.lightbox-img {
+  max-height: 80%;
+  max-width: 90%;
+  border-radius: 8px;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
+}
+
+.close-btn {
+  position: fixed;
+  top: 20px;
+  right: 30px;
+  font-size: 36px;
+  background: none;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  font-size: 48px;
+  background: none;
+  color: white;
+  border: none;
+  cursor: pointer;
+  user-select: none;
+}
+
+.nav-btn.left {
+  left: 40px;
+}
+
+.nav-btn.right {
+  right: 40px;
+}
+
+.comment-form-section {
+  margin-top: 40px;
+  padding: 16px;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+
+.form-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.comment-textarea {
+  width: 100%;
+  height: 80px;
+  padding: 8px;
+  font-size: 14px;
+  resize: vertical;
+  margin-bottom: 8px;
+}
+
+.rating-select {
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.submit-btn {
+  padding: 8px 16px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.login-warning {
+  color: #666;
+  font-style: italic;
+}
+
+.feature-ratings {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.feature-ratings label {
+  font-size: 14px;
+  color: #444;
+  display: flex;
+  flex-direction: column;
+}
+
+.feature-ratings select {
+  margin-top: 4px;
+  padding: 6px;
+  font-size: 14px;
+}
+
+.comment-ratings {
+  font-size: 14px;
+  color: #504220; /* altın sarısı yıldız */
+  margin-top: 6px;
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.comment-date {
+  font-size: 13px;
+  color: #666;
+  margin-top: 2px;
+  margin-bottom: 6px;
+}
+

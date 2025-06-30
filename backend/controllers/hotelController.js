@@ -83,3 +83,14 @@ exports.updateHotel = async (req, res) => {
     res.status(500).json({ error: 'Failed to update hotel' });
   }
 };
+
+// GET /api/hotels/:id
+exports.getHotelById = async (req, res) => {
+  try {
+    const hotel = await Hotel.findById(req.params.id);
+    if (!hotel) return res.status(404).json({ error: 'Hotel not found' });
+    res.json(hotel);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch hotel' });
+  }
+};

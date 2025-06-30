@@ -5,6 +5,7 @@
 </template>
 
 <script setup>
+import { computed } from 'vue'
 import { Bar } from 'vue-chartjs'
 import {
   Chart as ChartJS,
@@ -18,6 +19,7 @@ import {
 
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 
+// Props
 const props = defineProps({
   ratings: {
     type: Object,
@@ -25,7 +27,8 @@ const props = defineProps({
   }
 })
 
-const chartData = {
+// ✅ Computed ile reactive chart verisi
+const chartData = computed(() => ({
   labels: Object.keys(props.ratings),
   datasets: [
     {
@@ -34,8 +37,9 @@ const chartData = {
       backgroundColor: '#3b82f6'
     }
   ]
-}
+}))
 
+// Options
 const chartOptions = {
   responsive: true,
   scales: {

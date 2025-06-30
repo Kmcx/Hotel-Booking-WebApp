@@ -27,7 +27,7 @@ exports.getReviewsByHotel = async (req, res) => {
     const { hotelId } = req.params;
 
     const reviews = await HotelReview.find({ hotel: hotelId })
-      .populate('user', 'name')
+      .populate('user', 'name country')
       .sort({ createdAt: -1 });
 
     res.json(reviews);
@@ -53,6 +53,7 @@ exports.getReviewSummary = async (req, res) => {
           cleanliness: 0,
           location: 0,
           staff: 0,
+          features: 0
         }
       });
     }
@@ -61,18 +62,21 @@ exports.getReviewSummary = async (req, res) => {
       cleanliness: 0,
       location: 0,
       staff: 0,
+      features: 0
     };
 
     reviews.forEach(review => {
       sum.cleanliness += review.serviceRatings.cleanliness || 0;
       sum.location += review.serviceRatings.location || 0;
       sum.staff += review.serviceRatings.staff || 0;
+      sum.features += review.serviceRatings.features || 0;
     });
 
     const averages = {
       cleanliness: (sum.cleanliness / totalReviews).toFixed(1),
       location: (sum.location / totalReviews).toFixed(1),
       staff: (sum.staff / totalReviews).toFixed(1),
+      features: (sum.features / totalReviews).toFixed(1)
     };
 
     res.json({ totalReviews, averages });
@@ -80,3 +84,4 @@ exports.getReviewSummary = async (req, res) => {
     res.status(500).json({ error: 'Failed to summarize reviews' });
   }
 };
+

@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
 const hotelReviewSchema = new mongoose.Schema({
   hotel: {
@@ -18,18 +18,19 @@ const hotelReviewSchema = new mongoose.Schema({
   stars: {
     type: Number,
     min: 1,
-    max: 5,
+    max: 10,
     required: true,
   },
   serviceRatings: {
-    cleanliness: { type: Number, min: 1, max: 5 },
-    location: { type: Number, min: 1, max: 5 },
-    staff: { type: Number, min: 1, max: 5 },
+    cleanliness: { type: Number, min: 1, max: 10 },
+    location: { type: Number, min: 1, max: 10 },
+    staff: { type: Number, min: 1, max: 10 },
+    features: { type: Number, min: 1, max: 10 } 
   },
   createdAt: {
     type: Date,
     default: Date.now,
   }
-});
+})
 
-module.exports = mongoose.model('HotelReview', hotelReviewSchema);
+module.exports = mongoose.model('HotelReview', hotelReviewSchema)

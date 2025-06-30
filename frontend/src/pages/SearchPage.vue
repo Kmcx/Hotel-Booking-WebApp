@@ -1,45 +1,52 @@
 <template>
   <div class="p-6 space-y-4">
-    <h1 class="text-2xl font-bold mb-4">Search Results </h1>
+    <h1 class="text-2xl font-bold mb-4">Search Results</h1>
+
+    <div class="flex space-x-4 mb-4">
+      <select v-model="sortBy" @change="fetchHotels" class="border rounded px-3 py-1">
+        <option disabled value="">Sort by</option>
+        <option value="price">Price: Low to High</option>
+        <option value="rating">Rating: High to Low</option>
+      </select>
+    </div>
 
     <HotelCard
       v-for="(hotel, index) in hotels"
       :key="index"
       :hotel="hotel"
-      :loggedIn="true" 
+      :loggedIn="true"
     />
   </div>
 </template>
 
 <script setup>
+import { onMounted, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import HotelCard from '../components/HotelCard.vue'
-import { useHotelStore } from '../stores/HotelStore'
+import axios from 'axios'
 
-const hotelStore = useHotelStore()
+const route = useRoute()
+const hotels = ref([])
+const sortBy = ref('')
 
-const hotels = [
-  {
-    id: '1',
-    name: "Palm Beach Hotel",
-    rating: 4.7,
-    commentCount: 120,
-    price: 1450,
-    memberPrice: 1305,
-    specialDiscount: 10,
-    flagged: true,
-    image: "https://source.unsplash.com/featured/?hotel,beach"
-  },
-  {
-    id: '2',
-    name: "Mountain View Resort",
-    rating: 4.3,
-    commentCount: 87,
-    price: 980,
-    memberPrice: 882,
-    flagged: false,
-    image: "https://source.unsplash.com/featured/?hotel,mountain"
+const fetchHotels = async () => {
+  try {
+    const params = {
+      city: route.query.city,
+      sortBy: sortBy.value || undefined,
+    }
+
+    const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/hotels`, {
+      params,
+    })
+
+    hotels.value = res.data
+  } catch (error) {
+    console.error('Error fetching hotels:', error)
   }
-]
+}
 
-hotelStore.setHotels(hotels)
+onMounted(() => {
+  fetchHotels()
+})
 </script>
