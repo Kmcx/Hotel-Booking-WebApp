@@ -2,6 +2,7 @@
   <div class="p-6 space-y-4">
     <h1 class="text-2xl font-bold mb-4">Search Results</h1>
 
+    <!-- Sıralama Menüsü -->
     <div class="flex space-x-4 mb-4">
       <select v-model="sortBy" @change="fetchHotels" class="border rounded px-3 py-1">
         <option disabled value="">Sort by</option>
@@ -10,6 +11,7 @@
       </select>
     </div>
 
+    <!-- Otel Kartları -->
     <HotelCard
       v-for="(hotel, index) in hotels"
       :key="index"
@@ -20,24 +22,28 @@
 </template>
 
 <script setup>
-import { onMounted, ref, watch } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import HotelCard from '../components/HotelCard.vue'
 import axios from 'axios'
+import HotelCard from '../components/HotelCard.vue'
 
-const route = useRoute()
 const hotels = ref([])
 const sortBy = ref('')
 
+const route = useRoute()
+
 const fetchHotels = async () => {
   try {
-    const params = {
-      city: route.query.city,
-      sortBy: sortBy.value || undefined,
-    }
+    const { city, start, end, guests } = route.query
 
     const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/hotels`, {
-      params,
+      params: {
+        city,
+        start,
+        end,
+        guests,
+        sortBy: sortBy.value || undefined
+      }
     })
 
     hotels.value = res.data
@@ -46,7 +52,11 @@ const fetchHotels = async () => {
   }
 }
 
+// İlk yüklemede çalışsın
 onMounted(() => {
   fetchHotels()
 })
+
+// Query parametreleri değişirse tekrar filtreleme yap
+watch(() => route.query, fetchHotels)
 </script>

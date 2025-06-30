@@ -3,55 +3,49 @@
     <SearchBar />
 
     <div class="home-layout">
-      <aside class="sidebar">
-        <div class="map-box" @click="goToMap">🗺️ Haritada Göster</div>
-        <div class="filter-title">
-          <strong>Konaklama yeri adına göre ara</strong>
-        </div>
-      </aside>
+      <div class="hotel-cards-with-map">
+        <!-- Sol: Otel kartları -->
+        <div class="hotel-cards">
+          <div v-if="filteredHotels.length === 0" class="text-gray-500 p-4">
+            <template v-if="!userStore.user && !detectedCountry">
+              Loading location info...
+            </template>
+            <template v-else-if="!userCountry">
+              Unable to detect your country.
+            </template>
+            <template v-else>
+              No hotels available for this or next weekend in {{ userCountry }}.
+            </template>
+          </div>
 
-      <!-- Sağ: Otel kartları -->
-      <section class="hotel-list">
-        Available hotels for this weekend and next weekend in
-        <div v-if="filteredHotels.length === 0" class="text-gray-500 p-4">
-          <template v-if="!userStore.user && !detectedCountry">
-            Loading location info...
-          </template>
-          <template v-else-if="!userCountry">
-            Unable to detect your country.
-          </template>
-          <template v-else>
-            No hotels available for this or next weekend in {{ userCountry }}.
-          </template>
+          <HotelCard
+            v-for="hotel in filteredHotels"
+            :key="hotel._id"
+            :hotel="hotel"
+          />
         </div>
 
-        <HotelCard
-          v-for="hotel in filteredHotels"
-          :key="hotel._id"
-          :hotel="hotel"
-        />
-      </section>
+        <!-- Sağ: Harita -->
+        <div class="hotel-map-area">
+          <HotelMap v-if="filteredHotels.length" :hotels="filteredHotels" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
+
 
 <script setup>
 import { ref, onMounted, computed } from 'vue'
 import axios from 'axios'
 import SearchBar from '../components/SearchBar.vue'
 import HotelCard from '../components/HotelCard.vue'
+import HotelMap from '../components/HotelMap.vue'
 import { useUserStore } from '../stores/userStore'
-import { useRouter } from 'vue-router'
-import './HomePage.css'
 
 const hotels = ref([])
 const detectedCountry = ref(null)
 const userStore = useUserStore()
-const router = useRouter()
-
-function goToMap() {
-  router.push('/map')
-}
 
 // 🔄 İki haftalık hafta sonu tarihlerini al (Cumartesi + Pazar)
 const getWeekendDates = () => {
@@ -76,7 +70,6 @@ const getWeekendDates = () => {
 
 const [sat1, sun1, sat2, sun2] = getWeekendDates()
 
-
 const COUNTRY_CODES = {
   TR: 'Türkiye',
   US: 'United States',
@@ -99,8 +92,6 @@ onMounted(async () => {
 
   try {
     const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/hotels`)
-    console.log("Hotel API response:", response.data)
-
     const processedHotels = response.data.map(hotel => {
       hotel.available = Array.isArray(hotel.available)
         ? hotel.available.map(d =>
@@ -111,13 +102,6 @@ onMounted(async () => {
     })
 
     hotels.value = processedHotels
-
-    console.log("All hotels:", hotels.value.map(h => ({
-      name: h.name,
-      country: h.country,
-      available: h.available,
-      rating: h.rating
-    })))
   } catch (err) {
     console.error('Error fetching hotels from backend:', err)
   }
@@ -135,3 +119,5 @@ const filteredHotels = computed(() => {
     .slice(0, 3)
 })
 </script>
+
+

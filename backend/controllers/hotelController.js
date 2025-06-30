@@ -1,28 +1,64 @@
 const Hotel = require('../models/Hotel');
 
 // GET /api/hotels
+// GET /api/hotels
 exports.getAllHotels = async (req, res) => {
   try {
-    const { city, minPrice, maxPrice, sortBy } = req.query;
+    const { city, minPrice, maxPrice, sortBy, start, end, guests } = req.query;
 
     let filter = {};
-    if (city) filter.city = city;
+
+    if (city) {
+  filter.city = { $regex: new RegExp(`^${city}$`, 'i') }; // no case sensitive
+}
+
+
     if (minPrice || maxPrice) {
       filter.pricePerNight = {};
       if (minPrice) filter.pricePerNight.$gte = parseFloat(minPrice);
       if (maxPrice) filter.pricePerNight.$lte = parseFloat(maxPrice);
     }
 
-    let sort = {};
-    if (sortBy === 'rating') sort.rating = -1; // en yüksek puanlıdan başla
-    if (sortBy === 'price') sort.pricePerNight = 1; // fiyata göre artan sırala
+    if (guests) {
+      const guestCount = parseInt(guests);
+      if (!isNaN(guestCount)) {
+        filter.maxGuests = { $gte: guestCount };
+      }
+    }
 
-    const hotels = await Hotel.find(filter).sort(sort);
+    let sort = {};
+    if (sortBy === 'rating') sort.rating = -1;
+    if (sortBy === 'price') sort.pricePerNight = 1;
+
+    let hotels = await Hotel.find(filter).sort(sort);
+
+    
+    if (start && end) {
+      const startDate = new Date(start).toISOString().split('T')[0];
+      const endDate = new Date(end).toISOString().split('T')[0];
+
+      hotels = hotels.filter(hotel => {
+        const availability = hotel.available || [];
+        const current = new Date(startDate);
+        const endD = new Date(endDate);
+
+        while (current <= endD) {
+          const day = current.toISOString().split('T')[0];
+          if (!availability.includes(day)) return false;
+          current.setDate(current.getDate() + 1);
+        }
+
+        return true;
+      });
+    }
+
     res.json(hotels);
   } catch (err) {
+    console.error(err);
     res.status(500).json({ error: 'Failed to fetch hotels' });
   }
 };
+
 
 
 // POST /api/hotels
