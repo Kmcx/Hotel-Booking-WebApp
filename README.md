@@ -1,26 +1,26 @@
-# 🏨 Hotel Booking Web Application
+#  Hotel Booking Web Application
 
 A full-stack hotel booking web application built with **Vue.js (frontend)**, **Node.js + Express (backend)**, and **MongoDB (database)**. This platform allows users to search for hotels by city, date, and guests, view detailed hotel information, and make bookings with dynamic pricing and user-specific features.
 
 ---
 
-## 📐 Design Overview
+## Design Overview
 
-### 🔷 Frontend
+### Frontend
 - Developed using **Vue 3 + Vite**.
 - Responsive layout optimized for mobile and desktop.
 - Uses **Pinia** for state management.
 - Hotel list and search components are modular and reusable.
 - Hotel detail page includes amenities, guest pricing, map preview, and review visualization.
 
-### 🔷 Backend
+###  Backend
 - Built with **Express.js**, using a RESTful API design.
 - **MongoDB** used as the database with **Mongoose** schemas for hotels, users, reviews.
 - Authentication system includes user registration/login with hashed passwords (bcrypt).
 - Image upload support using **Multer**.
 - JWT-based authentication for protected routes.
 
-### 🔷 Deployment
+###  Deployment
 - Frontend hosted on **Vercel**
 - Backend deployed on **Render**
 - MongoDB Atlas used for cloud-hosted database
@@ -28,7 +28,7 @@ A full-stack hotel booking web application built with **Vue.js (frontend)**, **N
 
 
 
-## 🗃️ Data Model
+##  Data Model
 
 ## Hotel
 ```json
