@@ -26,7 +26,7 @@ A full-stack hotel booking web application built with **Vue.js (frontend)**, **N
 - MongoDB Atlas used for cloud-hosted database
 - Environment variables configured separately for each platform
 
----
+
 
 ## 🗃️ Data Model
 
@@ -50,8 +50,10 @@ A full-stack hotel booking web application built with **Vue.js (frontend)**, **N
   "maxGuests": "Number",
   "address": "String"
 }
+```
 
-User
+## User
+```
 {
   "name": "String",
   "email": "String",
@@ -60,17 +62,18 @@ User
   "country": "String",
   "city": "String",
 }
+```
+## Assumptions
 
-Assumptions
-Only registered users can see member-only discounted prices.
-Logged-in users receive 10% discount on applicable hotels.
-Static images and map previews are used for performance.
+- Only registered users can see member-only discounted prices.
+- Logged-in users receive 10% discount on applicable hotels.
+- Static images and map previews are used for performance.
 
-Problems Encountered
+## Problems Encountered
 
-Render cold starts caused 502 errors until UptimeRobot was integrated to keep the backend alive.
-Mobile dark mode caused black background and form elements, which were fixed by forcing light mode with color-scheme and global CSS resets.
-CORS issues between Vercel and Render were resolved with proper middleware and environment setup.
-Ensuring responsive behavior on smaller screens required adjustments in layout and card scaling.
-File uploads had to be carefully handled and served statically in the backend for access from frontend.
+- Render cold starts caused 502 errors until UptimeRobot was integrated to keep the backend alive.
+- Mobile dark mode caused black background and form elements, which were fixed by forcing light mode with `color-scheme` and global CSS resets.
+- CORS issues between Vercel and Render were resolved with proper middleware and environment setup.
+- Ensuring responsive behavior on smaller screens required adjustments in layout and card scaling.
+- File uploads had to be carefully handled and served statically in the backend for access from frontend.
 
