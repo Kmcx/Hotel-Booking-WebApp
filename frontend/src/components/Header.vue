@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-    <router-link to="/" class="header-title">🏨 HotelApp</router-link>
+    <router-link to="/" class="header-title">🏨 Hotel-Booking by Kmc</router-link>
 
     <template v-if="userStore.user">
       <div>
