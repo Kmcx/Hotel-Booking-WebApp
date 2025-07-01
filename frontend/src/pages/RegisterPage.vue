@@ -4,17 +4,22 @@
       <h2 class="text-3xl font-semibold text-center text-gray-800 mb-6">Create your account</h2>
       
       <form @submit.prevent="handleRegister" class="space-y-5">
+        <!-- Hata Mesajı -->
+        <p v-if="errorMessage" class="text-red-600 text-sm text-center mb-2">
+          {{ errorMessage }}
+        </p>
+
         <input v-model="name" type="text" placeholder="Name" class="input" />
         <input v-model="email" type="email" placeholder="Email" class="input" />
         <input v-model="password" type="password" placeholder="Password" class="input" />
         <input v-model="country" type="text" placeholder="Country" class="input" />
         <input v-model="city" type="text" placeholder="City" class="input" />
         <input type="file" @change="handleFileUpload" class="input" />
-          <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
-            Register
-          </button>
-      </form>
 
+        <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
+          Register
+        </button>
+      </form>
 
       <router-link to="/login" class="block text-center text-sm text-blue-600 hover:underline mt-4">
         Already have an account? Login
@@ -34,6 +39,7 @@ const password = ref('')
 const country = ref('')
 const city = ref('')
 const photo = ref(null)
+const errorMessage = ref('')
 
 const router = useRouter()
 const userStore = useUserStore()
@@ -43,6 +49,19 @@ const handleFileUpload = (e) => {
 }
 
 const handleRegister = async () => {
+  errorMessage.value = ''
+
+  if (!name.value || !email.value || !password.value || !country.value || !city.value) {
+    errorMessage.value = 'Please fill in all required fields.'
+    return
+  }
+
+  const passwordRegex = /^(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})/
+  if (!passwordRegex.test(password.value)) {
+    errorMessage.value = 'Password must be at least 8 characters, include 1 number and 1 special character.'
+    return
+  }
+
   try {
     const formData = new FormData()
     formData.append('name', name.value)
@@ -59,16 +78,20 @@ const handleRegister = async () => {
       body: formData
     })
 
-    if (!res.ok) throw new Error('Register failed')
     const data = await res.json()
+
+    if (!res.ok) {
+      errorMessage.value = data.error || 'Register failed'
+      return
+    }
+
     userStore.login(data.user, data.token)
     router.push('/')
   } catch (err) {
-    alert(err.message || 'Register failed')
+    errorMessage.value = err.message || 'Register failed'
   }
 }
 </script>
-
 
 <style scoped>
 .input {

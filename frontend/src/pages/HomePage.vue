@@ -20,7 +20,7 @@
               Unable to detect your country.
             </template>
             <template v-else>
-              No hotels available for this or next weekend in {{ userCountry }}.
+              Error connection with backend.
             </template>
           </div>
 
