@@ -68,6 +68,7 @@ A full-stack hotel booking web application built with **Vue.js (frontend)**, **N
 - Only registered users can see member-only discounted prices.
 - Logged-in users receive 10% discount on applicable hotels.
 - Static images and map previews are used for performance.
+- During registration, users must create a strong password that includes uppercase and lowercase letters, numbers, and at least one special character to ensure security.
 
 ## Problems Encountered
 
