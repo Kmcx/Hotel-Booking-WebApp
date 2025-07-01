@@ -30,7 +30,7 @@ A full-stack hotel booking web application built with **Vue.js (frontend)**, **N
 
 ## 🗃️ Data Model
 
-### Hotel
+## Hotel
 ```json
 {
   "name": "String",
@@ -51,7 +51,7 @@ A full-stack hotel booking web application built with **Vue.js (frontend)**, **N
   "address": "String"
 }
 
-### User
+## User
 {
   "name": "String",
   "email": "String",
