@@ -154,3 +154,20 @@
   color: #4b70d6;         /* Mavi ton (Tailwind blue-700) */
   margin-bottom: 8px;     /* SearchBar'dan biraz boşluk */
 }
+
+body {
+  background-color: white;
+  color: black;
+}
+
+input,
+textarea,
+select {
+  background-color: white;
+  color: black;
+  border: 1px solid #ccc;
+}
+
+:root {
+  color-scheme: light;
+}

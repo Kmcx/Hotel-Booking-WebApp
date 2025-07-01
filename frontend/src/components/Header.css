@@ -4,16 +4,40 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
   background-color: #ffffff;
   padding: 1rem 2rem;
   border-bottom: 1px solid #ddd;
 }
 
 .header-title {
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: #2c3e50;
   text-decoration: none;
+  color: #2c3e50;
+}
+
+.main-title {
+  font-size: 2rem;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+.sub-title {
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 0.2rem;
+  margin-left: 2.2rem; /* Hotel emoji hizasına yaklaşmak için */
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.user-greeting {
+  font-size: 0.95rem;
+  color: #333;
 }
 
 .header-button {
@@ -29,4 +53,27 @@
 
 .header-button:hover {
   background-color: #0056b3;
+}
+
+/* Responsive düzenleme */
+@media (max-width: 600px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header-right {
+    width: 100%;
+    justify-content: flex-start;
+    margin-top: 0.8rem;
+  }
+
+  .main-title {
+    font-size: 1.6rem;
+  }
+
+  .sub-title {
+    font-size: 0.8rem;
+    margin-left: 1.6rem;
+  }
 }

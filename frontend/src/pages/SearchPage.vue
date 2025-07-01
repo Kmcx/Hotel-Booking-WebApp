@@ -1,4 +1,9 @@
 <template>
+  <!-- Search bar -->
+    <div class="search-bar-wrapper">
+      
+      <SearchBar />
+    </div>
   <div class="p-6 space-y-4">
     <h1 class="page-title">Search Results</h1>
 
@@ -26,6 +31,7 @@ import { ref, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import axios from 'axios'
 import HotelCard from '../components/HotelCard.vue'
+import SearchBar from '../components/SearchBar.vue'
 
 const hotels = ref([])
 const sortBy = ref('')
@@ -88,5 +94,32 @@ watch(() => route.query, fetchHotels)
   outline: none;
   box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.3); /* Mavi iç gölge */
 }
+
+.search-bar-wrapper {
+  width: 100%;
+  background-color: #f5f5f5;
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+body {
+  background-color: white;
+  color: black;
+}
+
+input,
+textarea,
+select {
+  background-color: white;
+  color: black;
+  border: 1px solid #ccc;
+}
+
+:root {
+  color-scheme: light;
+}
+
+
 
 </style>
