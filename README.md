@@ -2,6 +2,7 @@
 
 A full-stack hotel booking web application built with **Vue.js (frontend)**, **Node.js + Express (backend)**, and **MongoDB (database)**. This platform allows users to search for hotels by city, date, and guests, view detailed hotel information, and make bookings with dynamic pricing and user-specific features.
 
+Presentation : https://youtu.be/-ByC4gydLaE
 ---
 
 ## Design Overview
