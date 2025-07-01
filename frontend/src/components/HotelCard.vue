@@ -1,4 +1,5 @@
 <template>
+  
   <div class="hotel-card-wide" @click="goToDetail" style="cursor: pointer;">
     <!-- Swiper (varsa resim) -->
     <div class="hotel-image-slider" v-if="hotel.images?.length">

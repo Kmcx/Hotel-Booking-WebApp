@@ -2,7 +2,7 @@
   <div class="map-wrapper">
     <!-- Statik harita önizleme -->
     <img src="/map-preview.png" class="map-preview" @click="showMap = true" />
-    <button class="map-button" @click="showMap = true">Haritada Gör</button>
+    <button class="map-button" @click="showMap = true">See On Map</button>
     <p v-if="address" class="hotel-address">{{ address }}</p>
 
     <!-- Harita Lightbox -->
@@ -76,7 +76,7 @@ watch(showMap, async (val) => {
 
 <style scoped>
 .map-wrapper {
-  margin-top: 16px;
+  margin-top: 0;
 }
 .map-preview {
   width: 100%;
@@ -86,14 +86,19 @@ watch(showMap, async (val) => {
   cursor: pointer;
 }
 .map-button {
-  margin-top: 8px;
-  padding: 6px 12px;
-  border: none;
-  background-color: #007bff;
+  padding: 8px 24px;        /* içerikten dolayı genişlik artar */
+  width: auto;              /* içeriğe göre doğal genişlik */
+  min-width: 160px;         /* en az bu kadar geniş olsun */
+  max-width: 100%;          /* çevresini aşmasın */
+  display: inline-block;    /* sadece kendini etkiler */
+  background-color: #81beff;
   color: white;
+  border: none;
   border-radius: 4px;
   cursor: pointer;
 }
+
+
 .hotel-address {
   margin-top: 8px;
   font-style: italic;
@@ -121,9 +126,9 @@ watch(showMap, async (val) => {
   top: 8px;
   right: 10px;
   font-size: 24px;
-  background: none;
+  background: rgb(255, 0, 0);
   border: none;
   cursor: pointer;
-  color: #444;
+  color: #ffffff;
 }
 </style>

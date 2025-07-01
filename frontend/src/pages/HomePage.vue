@@ -1,11 +1,17 @@
 <template>
-  <div>
-    <SearchBar />
+  <div class="home-container">
+    <!-- Search bar -->
+    <div class="search-bar-wrapper">
+      
+      <SearchBar />
+    </div>
 
+    <!-- Kartlar ve harita yan yana -->
     <div class="home-layout">
       <div class="hotel-cards-with-map">
-        <!-- Sol: Otel kartları -->
+        <!-- Otel Kartları (Sol) -->
         <div class="hotel-cards">
+          <div class="hotel-cards-title"> Available rooms in this and next weekend! </div>
           <div v-if="filteredHotels.length === 0" class="text-gray-500 p-4">
             <template v-if="!userStore.user && !detectedCountry">
               Loading location info...
@@ -25,15 +31,16 @@
           />
         </div>
 
-        <!-- Sağ: Harita -->
+        <!-- Harita (Sağ) -->
         <div class="hotel-map-area">
+         <div class="map button">
           <HotelMap v-if="filteredHotels.length" :hotels="filteredHotels" />
+         </div>
         </div>
       </div>
     </div>
   </div>
 </template>
-
 
 <script setup>
 import { ref, onMounted, computed } from 'vue'
@@ -47,7 +54,6 @@ const hotels = ref([])
 const detectedCountry = ref(null)
 const userStore = useUserStore()
 
-// 🔄 İki haftalık hafta sonu tarihlerini al (Cumartesi + Pazar)
 const getWeekendDates = () => {
   const today = new Date()
   const thisSaturday = new Date(today)
@@ -120,4 +126,73 @@ const filteredHotels = computed(() => {
 })
 </script>
 
+<style scoped>
+.home-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: auto;
+}
 
+/* Üstteki arama barı */
+.search-bar-wrapper {
+  width: 100%;
+  background-color: #f5f5f5;
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+/* Flex düzen (masaüstü görünüm) */
+.hotel-cards-with-map {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+/* Sol: Otel kartları */
+.hotel-cards {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Sağ: Harita 
+.hotel-map-area {
+  width: 30%;
+  min-height: 400px;
+  background-color: #eef2f5;
+  border-radius: 10px;
+  overflow: hidden;
+  position: sticky;
+  top: 100px;
+}
+*/
+/* Harita kutusu */
+.map.button {
+  width: 100%;
+  height: 105%;
+  position: relative;
+  background-color: #81beff;
+}
+
+/* ✅ RESPONSIVE EKLEME */
+@media (max-width: 768px) {
+  .hotel-cards-with-map {
+    flex-direction: column;
+  }
+
+  .hotel-cards,
+  .hotel-map-area {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .hotel-map-area {
+    position: static;
+    top: auto;
+    margin-top: 16px;
+  }
+}
+
+</style>

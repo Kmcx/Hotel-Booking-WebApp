@@ -2,34 +2,12 @@
   <div class="hotel-detail-container" v-if="hotel">
     <!-- ÜST BİLGİ -->
     <div class="top-section">
-      <div class="left-info">
-        <h1 class="hotel-name">{{ hotel.name }}</h1>
-        <p class="rating">⭐ {{ hotel.rating }} / 5 – {{ reviewCount }} yorum</p>
-        <p class="location">{{ hotel.city }}, {{ hotel.country }}</p>
+      <LeftHotelInfo
+      :hotel="hotel"
+      :is-logged-in="isLoggedIn"
+      :review-count="reviewCount"
+    />
 
-        <p class="room-types">
-          Oda Çeşitleri:
-          <span v-for="n in hotel.maxGuests" :key="n">
-            {{ n }} kişilik<span v-if="n !== hotel.maxGuests">, </span>
-          </span>
-        </p>
-
-        <div class="amenities">
-          <div v-for="amenity in hotel.amenities" :key="amenity" class="amenity">
-            ✔️ {{ amenity }}
-          </div>
-        </div>
-
-        <div class="price-box">
-          <span class="discounted">
-            {{ isLoggedIn && hotel.discountedPrice ? hotel.discountedPrice : hotel.pricePerNight }} ₺
-          </span>
-          <span v-if="isLoggedIn && hotel.discountedPrice" class="original">
-            {{ hotel.pricePerNight }} ₺
-          </span>
-        </div>
-        <p class="tax-info">1 gece için – vergiler dahil</p>
-      </div>
 
       <!-- HARİTA COMPONENT -->
       <HotelMap
@@ -80,6 +58,8 @@ import HotelComments from '../components/HotelComments.vue'
 import HotelMap from '../components/HotelMap.vue'
 import { useUserStore } from '../stores/userStore'
 import './HotelDetailPage.css'
+import LeftHotelInfo from '../components/LeftHotelInfo.vue'
+
 
 const route = useRoute()
 const userStore = useUserStore()

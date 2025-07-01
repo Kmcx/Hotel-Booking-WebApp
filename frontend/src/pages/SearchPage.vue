@@ -1,9 +1,9 @@
 <template>
   <div class="p-6 space-y-4">
-    <h1 class="text-2xl font-bold mb-4">Search Results</h1>
+    <h1 class="page-title">Search Results</h1>
 
     <!-- Sıralama Menüsü -->
-    <div class="flex space-x-4 mb-4">
+    <div class="sort-menu flex space-x-4 mb-4">
       <select v-model="sortBy" @change="fetchHotels" class="border rounded px-3 py-1">
         <option disabled value="">Sort by</option>
         <option value="price">Price: Low to High</option>
@@ -60,3 +60,33 @@ onMounted(() => {
 // Query parametreleri değişirse tekrar filtreleme yap
 watch(() => route.query, fetchHotels)
 </script>
+
+<style scoped>
+.page-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #4b70d6; /* Tailwind blue-700 */
+  margin-bottom: 1rem;
+  justify-content: flex-start; 
+}
+
+.sort-menu select {
+  padding: 10px 14px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #ffffff;
+  color: #333;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    justify-content: flex-start; 
+}
+
+.sort-menu select:focus {
+  border-color: #2563eb; /* Mavi odak çizgisi */
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.3); /* Mavi iç gölge */
+}
+
+</style>

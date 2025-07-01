@@ -32,3 +32,11 @@
 .search-button:hover {
   background-color: #0056b3;
 }
+
+.search-title {
+  text-align: left;
+  font-size: 1.5rem;      /* Daha büyük yazı */
+  font-weight: bold;
+  color: #4b70d6;         /* Mavi ton (Tailwind blue-700) */
+  margin-bottom: 8px;     /* SearchBar'dan biraz boşluk */
+}

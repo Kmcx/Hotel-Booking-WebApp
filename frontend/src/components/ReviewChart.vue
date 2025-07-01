@@ -32,7 +32,7 @@ const chartData = computed(() => ({
   labels: Object.keys(props.ratings),
   datasets: [
     {
-      label: 'Hizmet Puanı',
+      label: 'Serving Points',
       data: Object.values(props.ratings),
       backgroundColor: '#3b82f6'
     }

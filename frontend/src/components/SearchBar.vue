@@ -1,5 +1,7 @@
 <template>
+   <div class="search-title">Where is your destination?</div>
   <form @submit.prevent="handleSearch" class="search-form">
+    
     <input v-model="city" type="text" placeholder="City" class="search-input" />
 
     <input v-model="startDate" type="date" class="search-input" />

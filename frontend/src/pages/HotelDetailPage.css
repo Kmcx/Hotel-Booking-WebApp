@@ -1,3 +1,4 @@
+
 .hotel-detail-container {
   max-width: 1100px;
   margin: 0 auto;
@@ -36,6 +37,12 @@
   font-size: 15px;
   color: #777;
   margin-bottom: 16px;
+}
+
+.room-types {
+  font-size: 14px;
+  color: #444;
+  margin-bottom: 12px;
 }
 
 .amenities {
@@ -85,10 +92,13 @@
   display: flex;
   gap: 16px;
   margin-bottom: 32px;
+  flex-wrap: wrap;
 }
 
 .gallery-image {
   flex: 1;
+  min-width: 140px;
+  max-width: 100%;
   height: 160px;
   object-fit: cover;
   border-radius: 8px;
@@ -256,7 +266,7 @@
 
 .comment-ratings {
   font-size: 14px;
-  color: #504220; /* altın sarısı yıldız */
+  color: #504220;
   margin-top: 6px;
   margin-bottom: 10px;
   line-height: 1.5;
@@ -276,6 +286,7 @@
   cursor: pointer;
   border-radius: 8px;
 }
+
 .map-button {
   margin-top: 8px;
   padding: 6px 12px;
@@ -285,16 +296,12 @@
   border-radius: 4px;
   cursor: pointer;
 }
+
 .hotel-address {
   margin-top: 8px;
   font-style: italic;
 }
 
-.room-types {
-  font-size: 14px;
-  color: #444;
-  margin-bottom: 12px;
-}
 .map-lightbox {
   position: fixed;
   top: 50%;
@@ -306,11 +313,69 @@
   border: 2px solid #ddd;
   border-radius: 12px;
   background: white;
-  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 }
 
 .leaflet-map {
   width: 100%;
   height: 100%;
   border-radius: 12px;
+}
+
+.hotel-map-area {
+  margin-top: 0;
+  background-color: #81beff;
+}
+
+@media (max-width: 768px) {
+  .top-section {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .left-info,
+  .map-box {
+    width: 100%;
+  }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .gallery-image {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 6px;
+  }
+
+  .lightbox-img {
+    max-width: 95%;
+    max-height: 70%;
+  }
+
+  .hotel-name {
+    font-size: 22px;
+  }
+
+  .price-box {
+    font-size: 20px;
+  }
+
+  .original {
+    font-size: 14px;
+  }
+
+  .comment-text,
+  .comment-textarea,
+  .rating-select,
+  .submit-btn {
+    font-size: 13px;
+  }
+
+  .feature-ratings {
+    grid-template-columns: 1fr;
+  }
 }

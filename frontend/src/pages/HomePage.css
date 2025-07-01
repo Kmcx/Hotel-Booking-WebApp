@@ -128,3 +128,29 @@
   cursor: pointer;
   width: 100%;
 }
+
+@media (max-width: 768px) {
+  .hotel-cards-with-map {
+    flex-direction: column;
+  }
+
+  .hotel-cards,
+  .hotel-map-area {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .hotel-map-area {
+    position: static;
+    top: auto;
+    margin-top: 16px;
+  }
+}
+
+.hotel-cards-title {
+  text-align: left;
+  font-size: 1.5rem;      /* Daha büyük yazı */
+  font-weight: bold;
+  color: #4b70d6;         /* Mavi ton (Tailwind blue-700) */
+  margin-bottom: 8px;     /* SearchBar'dan biraz boşluk */
+}
