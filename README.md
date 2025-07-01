@@ -51,7 +51,7 @@ A full-stack hotel booking web application built with **Vue.js (frontend)**, **N
   "address": "String"
 }
 
-## User
+User
 {
   "name": "String",
   "email": "String",
@@ -61,12 +61,12 @@ A full-stack hotel booking web application built with **Vue.js (frontend)**, **N
   "city": "String",
 }
 
-## Assumptions
+Assumptions
 Only registered users can see member-only discounted prices.
 Logged-in users receive 10% discount on applicable hotels.
 Static images and map previews are used for performance.
 
-## Problems Encountered
+Problems Encountered
 
 Render cold starts caused 502 errors until UptimeRobot was integrated to keep the backend alive.
 Mobile dark mode caused black background and form elements, which were fixed by forcing light mode with color-scheme and global CSS resets.
